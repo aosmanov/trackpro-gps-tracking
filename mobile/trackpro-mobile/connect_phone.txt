@@ -1,0 +1,19 @@
+CONNECT YOUR PHONE TO TRACKPRO APP:
+
+Method 1 - Expo Go Manual Connection:
+1. Open Expo Go on your phone
+2. Enter this URL manually: exp://172.22.183.62:8081
+3. Or try: exp://172.22.183.62:19000
+
+Method 2 - Alternative Setup:
+Since WSL networking is causing issues, try this:
+
+1. Install the Expo Go app on your phone
+2. Make sure your phone and computer are on the same WiFi network
+3. Find your computer's IP address on the network:
+   - Windows: Open cmd, type: ipconfig
+   - Look for "Wireless LAN adapter Wi-Fi" IPv4 Address
+4. Use that IP instead of localhost
+
+Or we can test the web version first:
+- The mobile app code should work in browser at localhost:8081

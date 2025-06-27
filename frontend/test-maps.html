@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Google Maps API Test</title>
+    <style>
+        #map { height: 400px; width: 100%; }
+        body { font-family: Arial, sans-serif; padding: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Google Maps API Test</h1>
+    <p>Replace YOUR_API_KEY_HERE with your actual API key, then open this file in a browser.</p>
+    
+    <div id="map"></div>
+    
+    <script>
+        function initMap() {
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 13,
+                center: {lat: 42.3601, lng: -71.0589} // Boston
+            });
+            
+            new google.maps.Marker({
+                position: {lat: 42.3601, lng: -71.0589},
+                map: map,
+                title: 'Test Location'
+            });
+            
+            console.log('Google Maps loaded successfully!');
+            document.body.style.backgroundColor = '#e6ffe6';
+        }
+        
+        function mapError() {
+            console.error('Failed to load Google Maps');
+            document.body.innerHTML += '<p style="color: red;">Failed to load Google Maps. Check your API key and browser console for errors.</p>';
+            document.body.style.backgroundColor = '#ffe6e6';
+        }
+    </script>
+    
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY_HERE&callback=initMap&onerror=mapError" 
+            async defer></script>
+</body>
+</html>
