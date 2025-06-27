@@ -1,13 +1,15 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Platform } from 'react-native';
 
-// const API_BASE_URL = 'http://10.0.2.2:3001/api'; // Android emulator
-// const API_BASE_URL = 'http://localhost:3001/api'; // iOS simulator / Web
+// GitHub Codespaces URL (update this after creating Codespace)
+// const API_BASE_URL = 'https://YOUR-CODESPACE-NAME-3001.app.github.dev/api';
+
+// Local development URLs
 const API_BASE_URL = Platform.select({
   web: 'http://localhost:3001/api',
-  default: 'http://172.20.10.3:3001/api', // Windows backend IP
+  default: 'https://YOUR-CODESPACE-NAME-3001.app.github.dev/api', // Will be updated after Codespace creation
 });
-// Update this to your actual server IP for physical devices
+// This will be updated to your actual Codespace URL after creation
 
 interface ApiResponse<T = any> {
   data?: T;
