@@ -36,26 +36,15 @@ export default function RootLayout() {
   }, [error]);
 
   useEffect(() => {
-    // Demo mode - auto-login as technician
-    if (loaded) {
-      console.log('🎮 Demo mode: Auto-login as technician');
-      
-      // Set fake user data for demo
-      const demoUser = {
-        id: "550e8400-e29b-41d4-a716-446655440102",
-        first_name: "Mike",
-        last_name: "Davis", 
-        email: "mike@bostonwater.com",
-        phone: "(617) 555-0102",
-        role: "technician" as const,
-        company_id: "550e8400-e29b-41d4-a716-446655440001"
-      };
-      
-      authService.setAuthData("demo-token", demoUser);
-      router.replace('/(technician)');
+    // Simple initialization - always go to login
+    if (loaded && !isAuthChecked) {
+      console.log('🚀 Redirecting to login');
       setIsAuthChecked(true);
+      setTimeout(() => {
+        router.replace('/login');
+      }, 100);
     }
-  }, [loaded]);
+  }, [loaded, isAuthChecked]);
 
   useEffect(() => {
     if (loaded && isAuthChecked) {

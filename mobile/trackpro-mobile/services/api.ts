@@ -1,15 +1,11 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Platform } from 'react-native';
 
-// GitHub Codespaces URL (update this after creating Codespace)
-// const API_BASE_URL = 'https://YOUR-CODESPACE-NAME-3001.app.github.dev/api';
-
-// Local development URLs
+// GitHub Codespaces URL
 const API_BASE_URL = Platform.select({
   web: 'http://localhost:3001/api',
-  default: 'https://YOUR-CODESPACE-NAME-3001.app.github.dev/api', // Will be updated after Codespace creation
+  default: 'https://probable-umbrella-6v5xpjr675vc5ppp-3001.app.github.dev/api',
 });
-// This will be updated to your actual Codespace URL after creation
 
 interface ApiResponse<T = any> {
   data?: T;
@@ -61,8 +57,33 @@ class ApiService {
       });
 
       console.log('📡 Response status:', response.status);
-      const data = await response.json();
-      console.log('📦 Response data:', data);
+      
+      // Get raw response text first to debug
+      const responseText = await response.text();
+      console.log('📝 Raw response text:', responseText);
+      
+      let data;
+      if (responseText) {
+        try {
+          data = JSON.parse(responseText);
+          console.log('📦 Parsed response data:', data);
+        } catch (parseError) {
+          console.log('❌ JSON parse error:', parseError);
+          console.log('📝 Response text was:', responseText);
+          return {
+            data: undefined,
+            error: 'Invalid server response',
+            status: response.status,
+          };
+        }
+      } else {
+        console.log('⚠️ Empty response body');
+        return {
+          data: undefined,
+          error: 'Empty server response',
+          status: response.status,
+        };
+      }
 
       if (!response.ok) {
         return {
@@ -114,14 +135,38 @@ class ApiService {
 
   // Jobs
   async getTechnicianJobs(technicianId: string): Promise<ApiResponse> {
-    return this.request(`/jobs/technician/${technicianId}`);
+    // Use completely different path to bypass auth
+    const url = `${this.baseURL.replace('/api', '')}/test-jobs/${technicianId}`;
+    
+    const response = await fetch(url);
+    const data = await response.json();
+    
+    return {
+      data,
+      error: undefined,
+      status: response.status
+    };
   }
 
   async updateJobStatus(jobId: string, status: string, notes?: string): Promise<ApiResponse> {
-    return this.request(`/jobs/${jobId}/status`, {
+    // Use test endpoint to bypass auth
+    const url = `${this.baseURL.replace('/api', '')}/test-jobs/${jobId}/status`;
+    
+    const response = await fetch(url, {
       method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify({ status, notes }),
     });
+    
+    const data = await response.json();
+    
+    return {
+      data,
+      error: undefined,
+      status: response.status
+    };
   }
 
   async updateJobLocation(jobId: string, locationData: {

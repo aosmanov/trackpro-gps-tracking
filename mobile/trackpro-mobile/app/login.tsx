@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { router } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
 import { authService } from '../services/auth';
 
 export default function LoginScreen() {
@@ -74,8 +75,11 @@ export default function LoginScreen() {
       
       <View style={styles.content}>
         <View style={styles.header}>
+          <View style={styles.logoContainer}>
+            <Ionicons name="location" size={48} color="#3B82F6" />
+          </View>
           <Text style={styles.title}>TrackPro</Text>
-          <Text style={styles.subtitle}>Service Tracking Platform</Text>
+          <Text style={styles.subtitle}>Professional GPS Tracking for Service Teams</Text>
         </View>
 
         <View style={styles.form}>
@@ -205,5 +209,14 @@ const styles = StyleSheet.create({
     color: '#3B82F6',
     fontSize: 16,
     fontWeight: '600',
+  },
+  logoContainer: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    backgroundColor: '#EBF5FF',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 16,
   },
 });

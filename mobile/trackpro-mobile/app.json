@@ -14,13 +14,23 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "TrackPro needs location access to track technician position for customer updates.",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "TrackPro needs location access to track technician position for customer updates.",
+        "NSLocationAlwaysUsageDescription": "TrackPro needs background location access to provide real-time tracking updates to customers."
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_BACKGROUND_LOCATION"
+      ],
       "edgeToEdgeEnabled": true
     },
     "web": {
@@ -29,7 +39,15 @@
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
-      "expo-router"
+      "expo-router",
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "TrackPro needs location access to track technician position for customer updates.",
+          "locationAlwaysPermission": "TrackPro needs background location access to provide real-time tracking updates to customers.",
+          "locationWhenInUsePermission": "TrackPro needs location access to track technician position for customer updates."
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true

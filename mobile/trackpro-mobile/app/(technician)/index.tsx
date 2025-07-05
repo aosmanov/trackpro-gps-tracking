@@ -39,14 +39,15 @@ export default function TechnicianJobsScreen() {
 
   useEffect(() => {
     loadJobs();
-    initializeLocationTracking();
+    // Temporarily disable location for iOS testing
+    // initializeLocationTracking();
     
     // Update tracking status every 5 seconds
-    const interval = setInterval(() => {
-      setTrackingStatus(locationTrackingService.getTrackingStatus());
-    }, 5000);
+    // const interval = setInterval(() => {
+    //   setTrackingStatus(locationTrackingService.getTrackingStatus());
+    // }, 5000);
 
-    return () => clearInterval(interval);
+    // return () => clearInterval(interval);
   }, []);
 
   const initializeLocationTracking = async () => {
